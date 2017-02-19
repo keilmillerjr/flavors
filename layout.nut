@@ -1,34 +1,29 @@
 // Layout User Options
 class UserConfig {
-	</ label="Primary Color", help="Select a color scheme.", options="blue, blue_green, green, yellow_green, yellow, yellow_orange, orange, red_orange, red, red_violet, violet, blue_violet", order=1 />
-		primaryColor="red";
-	</ label="Artwork", help="Select an artwork type to display for game.", order=2 />
-		artwork="wheel";
-	</ label="Enable CRT Shader", help="Snap is simulated to look like it is beind displayed on a crt.", options="Yes, No", order=3 />
-		enableShader="Yes";
-	</ label="CRT Shader Resolution", help="Select CRT resolution.", options="640x480, 320x240", order=4 />
-		shaderResolution="320x240";
-	</ label="Debugger", help="Debugger is only helpful for solving bugs. Key will reload layout", options="Off, custom1, custom2, custom3, custom4, custom5, custom6", order=5 />
-		debugger="Off";
+	</ label="Primary Color",
+		help="Select a color scheme.",
+		options="blue, blue_green, green, yellow_green, yellow, yellow_orange, orange, red_orange, red, red_violet, violet, blue_violet",
+		order=1 />
+	primaryColor="red";
+	
+	</ label="Artwork",
+		help="Select an artwork type to display for game.",
+		order=2 />
+	artwork="wheel";
+	
+	</ label="Enable CRT Shader",
+		help="Snap is simulated to look like it is beind displayed on a crt.",
+		options="Yes, No",
+		order=3 />
+	enableShader="Yes";
+	
+	</ label="CRT Shader Resolution",
+		help="Select CRT resolution.",
+		options="640x480, 320x240",
+		order=4 />
+	shaderResolution="320x240";
 }
 local config = fe.get_config();
-
-// Debugger
-class Debugger {
-	key = "";
-	constructor(k="Off") {
-		key = k;
-		fe.add_signal_handler(this, "reload");
-	}
-	function msg(msg) {
-		print(msg + "\n");
-	}
-	function reload(str) {
-		if (str == key) fe.signal("reload");
-		return false;
-	}
-}
-local debugger = Debugger(config["debugger"]);
 
 // Percentages of A Value
 function percentage(percent, value) {
@@ -84,12 +79,6 @@ local colors = {
 	blue_violet = { r = 34, g = 0, b = 209 },
 }
 
-// Strip Irrelevant Info From Game Name
-function gameName(index_offset = 0) {
-	local s = split(fe.game_info(Info.Title, index_offset), "(/[");
-	return rstrip(s[0]);
-}
-
 // Return Favorite String If Game Is Favorite
 function favoriteString() {
 	if (fe.game_info(Info.Favourite) == "1") return "";
@@ -130,8 +119,6 @@ local shader = fe.add_shader(Shader.VertexAndFragment, "CRT-lottes.vsh", "CRT-lo
 	shader.set_param("brightMult", 1.25);
 
 	// Standard Shader stuff. Can probably send image.width to shader
-	//shader.set_param("color_texture_sz", 640, 480);
-	//shader.set_param("color_texture_pow2_sz", 640, 480);
 	shader.set_param("color_texture_sz", splitRes(config["shaderResolution"], "width"), splitRes(config["shaderResolution"], "height"));
 	shader.set_param("color_texture_pow2_sz", splitRes(config["shaderResolution"], "width"), splitRes(config["shaderResolution"], "height"));
 	shader.set_texture_param("mpass_texture");
@@ -173,7 +160,7 @@ local settings = {
 		selbg_alpha = 0,
 		sel_red = colors[colors.primary].r, sel_green = colors[colors.primary].g, sel_blue = colors[colors.primary].b,
 		align = Align.Centre,
-		format_string = "[!gameName]",
+		format_string = "[Title]",
 	},
 	header = {
 		x = 0,
@@ -259,8 +246,35 @@ local settings = {
 	},
 }
 
-// Load Modules
-fe.load_module("fade");
+// Load Debug Module
+local log = null;
+if (fe.load_module("Debug")) log = Log();
+
+// Load Layout Required Modules
+fe.load_module("fade"); 
+
+// Leap over filters with a list size of zero
+class Leap {
+	exception = "";
+
+	constructor(e="All") {
+		exception = e;
+
+		fe.add_transition_callback(this, "transitions");
+	}
+
+	function transitions(ttype, var, ttime) {
+		if (ttype == Transition.StartLayout || Transition.ToNewSelection || Transition.ToNewList) logic();
+	}
+
+	function logic() {
+		if ((fe.filters[fe.list.filter_index].name != exception) && (fe.list.size == 0)) {
+			try { log.send("Skipping the " + fe.filters[fe.list.filter_index].name + " filter because the list size is " + fe.list.size + "."); } catch(e) {}
+			fe.signal("next_filter");
+		}
+	}
+}
+local leap = Leap();
 
 // Layout
 local snap = FadeArt("snap", -1, -1, 1, 1);
@@ -279,7 +293,7 @@ local list = fe.add_listbox(-1, -1, 1, 1);
 local header = fe.add_image("white.png", -1, -1, 1, 1);
 	setProperties(header, settings.header);
 
-local breadcrumbs = fe.add_text("[System] > [FilterName]", -1, -1, 1, 1);
+local breadcrumbs = fe.add_text("[DisplayName] > [FilterName]", -1, -1, 1, 1);
 	setProperties(breadcrumbs, settings.breadcrumbs);
 
 local count = fe.add_text("[ListEntry] of [ListSize]", -1, -1, 1, 1);
