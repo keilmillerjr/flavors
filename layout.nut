@@ -130,72 +130,67 @@ fe.layout.font = "Alégre Sans Bold NC";
 
 // Settings
 local settings = {
+	background = {
+		x = 0,
+		y = 0,
+		width = flw,
+		height = flh,
+	},
 	snap = {
 		x = 0,
 		y = 0,
 		width = flw,
 		height = flh,
 	},
-	background = {
+	artwork = {
+		x = percentage(4, flw),
+		y = percentage(54, flh),
+		width = percentage(33, flw),
+		height = percentage(33, flh),
+		preserve_aspect_ratio = true,
+	},
+	shade = {
 		x = 0,
 		y = 0,
 		width = flw,
 		height = flh,
 		red = colors.black.r, green = colors.black.g, blue = colors.black.b,
-		alpha = percentage(65, 255),
+		alpha = percentage(25, 255),
 	}
-	artwork = {
-		x = percentage(1, flw),
-		y = percentage(20, flh),
-		width = percentage(38.5, flw),
-		height = percentage(60, flh),
-		preserve_aspect_ratio = true,
-	},
-	list = {
-		x = percentage(41.5, flw),
-		y = 0,
-		width = percentage(57.5, flw),
-		height = flh,
-		red = colors.grey.r, green = colors.grey.g, blue = colors.grey.b,
-		selbg_alpha = 0,
-		sel_red = colors[colors.primary].r, sel_green = colors[colors.primary].g, sel_blue = colors[colors.primary].b,
-		align = Align.Centre,
-		format_string = "[Title]",
-	},
 	header = {
 		x = 0,
 		y = 0,
 		width = flw,
-		height = percentage(8, flh),
+		height = percentage(2, flh),
 		red = colors[colors.primary].r, green = colors[colors.primary].g, blue = colors[colors.primary].b,
-	},
-	breadcrumbs = {
-		x = 0,
-		y = percentage(1, flh),
-		width = percentage(50, flw),
-		height = percentage(6, flh),
-		red = colors.white.r, green = colors.white.g, blue = colors.white.b,
-		align = Align.Left,
-	},
-	count = {
-		x = percentage(50, flw),
-		y = percentage(1, flh),
-		width = percentage(50, flw),
-		height = percentage(6, flh),
-		red = colors.white.r, green = colors.white.g, blue = colors.white.b,
-		align = Align.Right,
 	},
 	gradientTop = {
 		x = 0,
-		y = percentage(8, flh),
+		y = percentage(2, flh),
 		width = flw,
-		height = percentage(20, flh),
+		height = percentage(4, flh),
 	},
 	gradientBottom = {
 		x = 0,
 		y = percentage(80, flh),
 		width = flw,
 		height = percentage(20, flh),
+	},
+	breadcrumbs = {
+		x = 0,
+		y = percentage(3, flh),
+		width = percentage(80, flw),
+		height = percentage(6, flh),
+		red = colors.white.r, green = colors.white.g, blue = colors.white.b,
+		align = Align.Left,
+	},
+	count = {
+		x = percentage(80, flw),
+		y = percentage(3, flh),
+		width = percentage(20, flw),
+		height = percentage(6, flh),
+		red = colors.white.r, green = colors.white.g, blue = colors.white.b,
+		align = Align.Right,
 	},
 	published = {
 		x = 0,
@@ -270,33 +265,33 @@ class Leap {
 local leap = Leap();
 
 // Layout
-local snap = FadeArt("snap", -1, -1, 1, 1);
-	setProperties(snap, settings.snap);
-	if (yesNo(config["enableShader"])) snap.shader = shader;
-
-local background = fe.add_image("white.png", -1, -1, 1, 1);
+local background = fe.add_surface(settings.background.width, settings.background.height);
 	setProperties(background, settings.background);
+	if (yesNo(config["enableShader"])) background.shader = shader;
 
-local artwork = fe.add_artwork(config["artwork"], -1, -1, 1, 1);
+local snap = FadeArt("snap", -1, -1, 1, 1, background);
+	setProperties(snap, settings.snap);
+
+local artwork = background.add_artwork(config["artwork"], -1, -1, 1, 1);
 	setProperties(artwork, settings.artwork);
 
-local list = fe.add_listbox(-1, -1, 1, 1);
-	setProperties(list, settings.list);
+local shade = background.add_image("white.png", -1, -1, 1, 1);
+	setProperties(shade, settings.shade);
 
 local header = fe.add_image("white.png", -1, -1, 1, 1);
 	setProperties(header, settings.header);
-
-local breadcrumbs = fe.add_text("[DisplayName] > [FilterName]", -1, -1, 1, 1);
-	setProperties(breadcrumbs, settings.breadcrumbs);
-
-local count = fe.add_text("[ListEntry] of [ListSize]", -1, -1, 1, 1);
-	setProperties(count, settings.count);
 
 local gradientTop = fe.add_image("gradient-top.png", -1, -1, 1, 1);
 	setProperties(gradientTop, settings.gradientTop);
 
 local gradientBottom = fe.add_image("gradient-bottom.png", -1, -1, 1, 1);
 	setProperties(gradientBottom, settings.gradientBottom);
+
+local breadcrumbs = fe.add_text("[DisplayName] > [FilterName] > [Title]", -1, -1, 1, 1);
+	setProperties(breadcrumbs, settings.breadcrumbs);
+
+local count = fe.add_text("[ListEntry] of [ListSize]", -1, -1, 1, 1);
+	setProperties(count, settings.count);
 
 local published = fe.add_text("[Year] [Manufacturer]", -1, -1, 1, 1);
 	setProperties(published, settings.published);
