@@ -185,13 +185,6 @@ local settings = {
 		red = colors.white.r, green = colors.white.g, blue = colors.white.b,
 		align = Align.Right,
 	},
-	gradient = {
-		x = 0,
-		y = 0,
-		width = flw,
-		height = flh,
-		red = colors[colors.primary].r, green = colors[colors.primary].g, blue = colors[colors.primary].b,
-	},
 	gradientTop = {
 		x = 0,
 		y = percentage(8, flh),
