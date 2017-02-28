@@ -232,7 +232,7 @@ local snap = FadeArt("snap", -1, -1, 1, 1, background);
 	setProperties(snap, settings.snap);
 
 if (toBool(config["enableArtwork"])) {
-	local artwork = background.add_artwork(config["artworkType"], -1, -1, 1, 1);
+	local artwork = FadeArt(config["artworkType"], -1, -1, 1, 1, background);
 		setProperties(artwork, settings.artwork);
 }
 
