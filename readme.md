@@ -4,6 +4,8 @@ by [Keil Miller Jr](http://keilmillerjr.com)
 
 ![Image of layout](layout.png)
 
+![Alternate image of layout](layout2.png)
+
 ## DESCRIPTION:
 
 flavors is a simple layout for the [AttractMode](http://attractmode.org) front end. It has 12 different user selectable "flavors". Layout looks nicely with both vertical and horizontal orientations. Any resolution qvga (240p) and upwards works well. Any lower resolution and text would be unreadable. Make sure the crt shader is not enabled if you are using this layout on a crt monitor.
