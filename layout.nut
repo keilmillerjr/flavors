@@ -135,16 +135,16 @@ local settings = {
 		x = 0,
 		y = percentage(2, flh),
 		width = flw,
-		height = percentage(4, flh),
+		height = percentage(10, flh),
 	},
 	gradientTopAlt = {
 		y = percentage(38, flh),
 	},
 	gradientBottom = {
 		x = 0,
-		y = percentage(80, flh),
+		y = percentage(83, flh),
 		width = flw,
-		height = percentage(20, flh),
+		height = percentage(17, flh),
 	},
 	breadcrumbs = {
 		x = 0,
