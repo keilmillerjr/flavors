@@ -238,8 +238,9 @@ local header = fe.add_image("white.png", -1, -1, 1, 1);
 	setProperties(header, settings.header);
 	if (toBool(config["enableMarquee"])) setProperties(header, settings.headerAlt);
 
+local marquee = null;
 if (toBool(config["enableMarquee"])) {
-	local marquee = fe.add_artwork("marquee", -1, -1, 1, 1);
+	marquee = fe.add_artwork("marquee", -1, -1, 1, 1);
 		setProperties(marquee, settings.marquee);
 }
 
