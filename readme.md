@@ -15,7 +15,10 @@ You may need to change file paths as necessary as each platform (windows, mac, l
 ## Install Files
 
 1. Copy layout files to `$HOME/.attract/layouts/flavors/`.
-2. The fade module is required, but is included with attractmode by default.
+2. The [Debug module](https://github.com/keilmillerjr/debug-module) is optional. It is recommended for debugging.
+3. The [Shader module](https://github.com/keilmillerjr/shader-module) is optional. It is required for you to install it if you intend to use crt shaders within the layout.
+4. The [Helpers module](https://github.com/keilmillerjr/helpers-module) is REQUIRED for you to install. The layout will not work correctly without it.
+5. The fade module is required. It is included with attractmode by default. No additional install is required.
 
 ## Usage
 
