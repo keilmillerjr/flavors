@@ -15,40 +15,45 @@ class UserConfig {
 		options="blue, blue_green, green, yellow_green, yellow, yellow_orange, orange, red_orange, red, red_violet, violet, blue_violet",
 		order=1 />
 	primaryColor="red";
+
+	</ label="Breadcrumbs",
+		help="Magic tokens to display as breadcrumbs.",
+		order=2 />
+	breadcrumbs="[DisplayName] > [FilterName] > [Title]";
 	
 	</ label="Enable Marquee",
 		help="Enable use of marquee.",
 		options="Yes, No",
-		order=2 />
+		order=3 />
 	enableMarquee="No";
 	
 	</ label="Enable Artwork",
 		help="Enable use of artwork.",
 		options="Yes, No",
-		order=3 />
+		order=4 />
 	enableArtwork="Yes";
 	
 	</ label="Artwork Type",
 		help="Select an artwork type to display.",
-		order=4 />
+		order=5 />
 	artworkType="wheel";
 	
 	</ label="Enable CRT Shader on Background",
 		help="Snap and Artwork is simulated to look like it is being displayed on a crt.",
 		options="Yes, No",
-		order=5 />
+		order=6 />
 	enableBackgroundShader="Yes";
 	
 	</ label="Enable CRT Shader on Marquee",
 		help="Marquee is simulated to look like it is being displayed on a crt.",
 		options="Yes, No",
-		order=6 />
+		order=7 />
 	enableMarqueeShader="No";
 	
 	</ label="CRT Shader Resolution",
 		help="Select CRT resolution.",
 		options="640x480, 320x240",
-		order=7 />
+		order=8 />
 	shaderResolution="320x240";
 }
 local config = fe.get_config();
@@ -251,7 +256,7 @@ local gradientTop = fe.add_image("gradient-top.png", -1, -1, 1, 1);
 local gradientBottom = fe.add_image("gradient-bottom.png", -1, -1, 1, 1);
 	setProperties(gradientBottom, settings.gradientBottom);
 
-local breadcrumbs = fe.add_text("[DisplayName] > [FilterName] > [Title]", -1, -1, 1, 1);
+local breadcrumbs = fe.add_text(config["breadcrumbs"], -1, -1, 1, 1);
 	setProperties(breadcrumbs, settings.breadcrumbs);
 	if (toBool(config["enableMarquee"])) setProperties(breadcrumbs, settings.breadcrumbsAlt);
 
