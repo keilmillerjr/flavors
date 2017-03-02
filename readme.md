@@ -26,6 +26,10 @@ You may need to change file paths as necessary as each platform (windows, mac, l
 
 You can enable the flavors layout by running Attract Mode and pressing the tab key to enter the configure menu. Navigate to `Displays -> Display Name -> Layout`. Enable the layout and set your `Layout Options`. This layout is oriented towards the use of mame, and usage of catver.ini is currently required. This will soon change in a future commit.
 
+## Bugs
+
+* When switching orientations, layout will have to be reloaded to correct an issue with the crt shader not updating the new texture size. You can restart Attract Mode or use the [Debug module](https://github.com/keilmillerjr/debug-module). I'm currently looking into possibilities on how to resolve this.
+
 ## Notes
 
 Inspiration for this theme came from the [unnamed theme](http://forum.attractmode.org/index.php?topic=1231.0) by [liquid8d](http://forum.attractmode.org/index.php?action=profile;u=4)

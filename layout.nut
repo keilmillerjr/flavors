@@ -283,6 +283,9 @@ local playTime = fe.add_text("Played For [PlayedTime]", -1, -1, 1, 1);
 // Enable Shaders
 // --------------------
 if (fe.load_module("shader")) {
+	if (isLayoutVertical()) {
+		config["shaderResolution"] = reverseRes(config["shaderResolution"]);
+	}
 	if (toBool(config["enableBackgroundShader"])) {
 		local backgroundShader = CrtLottes(splitRes(config["shaderResolution"], "width"), splitRes(config["shaderResolution"], "height"));
 		background.shader = backgroundShader.shader;
@@ -293,3 +296,4 @@ if (fe.load_module("shader")) {
 		marquee.shader = marqueeShader.shader;
 	}
 }
+
