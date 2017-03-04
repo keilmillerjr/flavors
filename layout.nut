@@ -107,9 +107,9 @@ local settings = {
 	},
 	artwork = {
 		x = percentage(4, flw),
-		y = percentage(48, flh),
+		y = percentage(52, flh),
 		width = percentage(36, flw),
-		height = percentage(36, flh),
+		height = percentage(29, flh),
 		preserve_aspect_ratio = true,
 	},
 	shade = {
@@ -128,13 +128,13 @@ local settings = {
 		red = colors[colors.primary].r, green = colors[colors.primary].g, blue = colors[colors.primary].b,
 	},
 	headerAlt = {
-		height = percentage(38, flh),
+		height = percentage(42, flh),
 	},
 	marquee = {
 		x = 0,
 		y = percentage(2, flh),
 		width = flw,
-		height = percentage(34, flh),
+		height = percentage(38, flh),
 	},
 	gradientTop = {
 		x = 0,
@@ -143,7 +143,7 @@ local settings = {
 		height = percentage(10, flh),
 	},
 	gradientTopAlt = {
-		y = percentage(38, flh),
+		y = percentage(42, flh),
 	},
 	gradientBottom = {
 		x = 0,
@@ -160,7 +160,7 @@ local settings = {
 		align = Align.Left,
 	},
 	breadcrumbsAlt = {
-		y = percentage(39, flh),
+		y = percentage(43, flh),
 	},
 	count = {
 		x = percentage(80, flw),
@@ -171,11 +171,11 @@ local settings = {
 		align = Align.Right,
 	},
 	countAlt = {
-		y = percentage(39, flh),
+		y = percentage(43, flh),
 	},
 	published = {
 		x = 0,
-		y = percentage(83, flh),
+		y = percentage(82, flh),
 		width = percentage(50, flw),
 		height = percentage(8, flh),
 		red = colors[colors.primary].r, green = colors[colors.primary].g, blue = colors[colors.primary].b,
@@ -183,33 +183,33 @@ local settings = {
 	},
 	favorite = {
 		x = percentage(50, flw),
-		y = percentage(83, flh),
+		y = percentage(82, flh),
 		width = percentage(50, flw),
-		height = percentage(7, flh),
+		height = percentage(8, flh),
 		red = colors.yellow.r, green = colors.yellow.g, blue = colors.yellow.b,
 		align = Align.Right,
 		font = "FontAwesome",
 	},
 	divider = {
 		x = percentage(1, flw),
-		y = percentage(91.375, flh),
+		y = percentage(90.375, flh),
 		width = percentage(98, flw),
 		height = percentage(0.25, flh),
 		red = colors[colors.primary].r, green = colors[colors.primary].g, blue = colors[colors.primary].b,
 	},
 	category = {
 		x = 0,
-		y = percentage(92, flh),
+		y = percentage(91, flh),
 		width = percentage(50, flw),
-		height = percentage(7, flh),
+		height = percentage(8, flh),
 		red = colors.white.r, green = colors.white.g, blue = colors.white.b,
 		align = Align.Left,
 	},
 	playTime = {
 		x = percentage(50, flw),
-		y = percentage(92, flh),
+		y = percentage(91, flh),
 		width = percentage(50, flw),
-		height = percentage(7, flh),
+		height = percentage(8, flh),
 		red = colors.grey.r, green = colors.grey.g, blue = colors.grey.b,
 		align = Align.Right,
 	},
@@ -292,7 +292,7 @@ if (fe.load_module("shader")) {
 	}
 	
 	if (toBool(config["enableMarqueeShader"])) {
-		local marqueeShader = CrtLottes(splitRes(config["shaderResolution"], "width"), splitRes(config["shaderResolution"], "height"));
+		local marqueeShader = CrtLottes(splitRes(config["shaderResolution"], "width"), settings.marquee.height);
 		marquee.shader = marqueeShader.shader;
 	}
 }
