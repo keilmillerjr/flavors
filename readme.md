@@ -35,3 +35,5 @@ You can enable the flavors layout by running Attract Mode and pressing the tab k
 Inspiration for this theme came from the [unnamed theme](http://forum.attractmode.org/index.php?topic=1231.0) by [liquid8d](http://forum.attractmode.org/index.php?action=profile;u=4)
 
 CRT-Lottes Shader by Timothy Lottes, converted to MAME and AttractMode FE by Luke-Nukem.
+
+Default marquee is a slightly modified version of [Led-Style Marquees](http://www.onyxarcade.com/marquee.html) by Onyx Arcade to flow a little better with the many primary colors of this layout.

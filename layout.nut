@@ -296,4 +296,3 @@ if (fe.load_module("shader")) {
 		marquee.shader = marqueeShader.shader;
 	}
 }
-
