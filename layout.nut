@@ -63,7 +63,7 @@ local config = fe.get_config();
 // --------------------
 local flw = fe.layout.width;
 local flh = fe.layout.height;
-fe.layout.font = "Alégre Sans Bold NC";
+fe.layout.font = "Alegre Sans Bold NC";
 
 // --------------------
 // Colors
